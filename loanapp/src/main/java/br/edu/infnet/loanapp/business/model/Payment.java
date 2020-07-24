@@ -37,9 +37,6 @@ public class Payment implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date paymentDate;
 
-	@Column(name = "installmentNbr", nullable = false)
-	private int installmentNbr;
-
 	@Column(name = "capitalPaid", nullable = true)
 	private double capitalPaid;
 
@@ -54,14 +51,12 @@ public class Payment implements Serializable {
 			final int id, //
 			final Installment installment, //
 			final Date paymentDate, //
-			final int installmentNbr, //
 			final double capitalPaid, //
 			final double interestPaid) {
 		super();
 		this.id = id;
 		this.installment = installment;
 		this.paymentDate = paymentDate;
-		this.installmentNbr = installmentNbr;
 		this.capitalPaid = capitalPaid;
 		this.interestPaid = interestPaid;
 	}
@@ -90,14 +85,6 @@ public class Payment implements Serializable {
 		this.paymentDate = paymentDate;
 	}
 
-	public int getInstallmentNbr() {
-		return this.installmentNbr;
-	}
-
-	public void setInstallmentNbr(final int installmentNbr) {
-		this.installmentNbr = installmentNbr;
-	}
-
 	public double getCapitalPaid() {
 		return this.capitalPaid;
 	}
@@ -116,9 +103,8 @@ public class Payment implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format(
-				"Payment [id=%s, installment=%s, paymentDate=%s, installmentNbr=%s, capitalPaid=%s, interestPaid=%s]",
-				this.id, this.installment, this.paymentDate, this.installmentNbr, this.capitalPaid, this.interestPaid);
+		return String.format("Payment [id=%s, installment=%s, paymentDate=%s, capitalPaid=%s, interestPaid=%s]",
+				this.id, this.installment, this.paymentDate, this.capitalPaid, this.interestPaid);
 	}
 
 	@Override
@@ -128,51 +114,39 @@ public class Payment implements Serializable {
 		long temp;
 		temp = Double.doubleToLongBits(this.capitalPaid);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result + ((this.installment == null) ? 0 : this.installment.hashCode());
 		result = prime * result + this.id;
+		result = prime * result + ((this.installment == null) ? 0 : this.installment.hashCode());
 		temp = Double.doubleToLongBits(this.interestPaid);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((this.paymentDate == null) ? 0 : this.paymentDate.hashCode());
-		result = prime * result + this.installmentNbr;
 		return result;
 	}
 
 	@Override
 	public boolean equals(final Object obj) {
-		if (this == obj) {
+		if (this == obj)
 			return true;
-		}
-		if (obj == null) {
+		if (obj == null)
 			return false;
-		}
-		if (this.getClass() != obj.getClass()) {
+		if (this.getClass() != obj.getClass())
 			return false;
-		}
 		final Payment other = (Payment) obj;
-		if (Double.doubleToLongBits(this.capitalPaid) != Double.doubleToLongBits(other.capitalPaid)) {
+		if (Double.doubleToLongBits(this.capitalPaid) != Double.doubleToLongBits(other.capitalPaid))
 			return false;
-		}
+		if (this.id != other.id)
+			return false;
 		if (this.installment == null) {
-			if (other.installment != null) {
+			if (other.installment != null)
 				return false;
-			}
-		} else if (!this.installment.equals(other.installment)) {
+		} else if (!this.installment.equals(other.installment))
 			return false;
-		}
-		if (this.id != other.id) {
+		if (Double.doubleToLongBits(this.interestPaid) != Double.doubleToLongBits(other.interestPaid))
 			return false;
-		}
-		if (Double.doubleToLongBits(this.interestPaid) != Double.doubleToLongBits(other.interestPaid)) {
-			return false;
-		}
 		if (this.paymentDate == null) {
 			if (other.paymentDate != null)
 				return false;
-		} else if (!this.paymentDate.equals(other.paymentDate)) {
+		} else if (!this.paymentDate.equals(other.paymentDate))
 			return false;
-		} else if (this.installmentNbr != other.installmentNbr) {
-			return false;
-		}
 		return true;
 	}
 

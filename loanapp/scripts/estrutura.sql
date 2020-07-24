@@ -30,7 +30,6 @@ create table LN_PAYMENT(
     id int primary key AUTO_INCREMENT,
     installmentId int not null,
     paymentDate date not null,
-    installmentNbr int not null,
     capitalPaid DECIMAL(13,2) null,
     interestPaid DECIMAL(13,2) null,
     FOREIGN KEY (contractId) references LN_CONTRACT(id)
@@ -41,6 +40,7 @@ create table LN_INSTALLMENT(
 	contractId int not null,
 	interestInd DECIMAL(13,2) null,
 	capitalInd DECIMAL(13,2) null,
+	installmentNbr int not null,
 	installmentDateDue date not null,
 	FOREIGN KEY (contractId) references LN_CONTRACT(id)
 );
