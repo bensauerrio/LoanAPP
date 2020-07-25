@@ -32,28 +32,34 @@ public class InstallmentService {
 		}
 		final Optional<Installment> optInstallment = this.installmentRepository.findLastInstallment(contract.getId());
 		if (!optInstallment.isPresent()) {
-			final double basicInstallmentRate = this.calculateBasicInstallmentBasedOnPrice(contract);
-			final Installment installment = new Installment();
-			installment.setContract(contract);
-			installment.setInterestIndicated(//
-					Precision.round(//
-							(contract.getLoanAmount() * contract.getInterestRate()), //
-							2)//
-			);
-
-			installment.setCapitalIndicates(Precision.round(//
-					(basicInstallmentRate - installment.getInterestIndicated()), //
-					2)//
-			);
-
-			installment.setInstallmentDateDue(DateUtils.addMonth(contract.getStartDate(), 1));
-			installment.setInstallmentNbr(contract.getQttInstallments());
+			final Installment installment = this.getNewInstallmentFromContract(contract);
 
 			return installment;
 
 		}
 
 		return null;
+	}
+
+	private Installment getNewInstallmentFromContract(final Contract contract) {
+		final double basicInstallmentRate = this.calculateBasicInstallmentBasedOnPrice(contract);
+		final Installment installment = new Installment();
+		installment.setContract(contract);
+		installment.setInterestIndicated(//
+				Precision.round(//
+						(contract.getLoanAmount() * contract.getInterestRate()), //
+						2)//
+		);
+
+		installment.setCapitalIndicates(Precision.round(//
+				(basicInstallmentRate - installment.getInterestIndicated()), //
+				2)//
+		);
+
+		installment.setInstallmentDateDue(DateUtils.addMonth(contract.getStartDate(), 1));
+		installment.setInstallmentNbr(contract.getQttInstallments());
+		this.installmentRepository.save(installment);
+		return installment;
 	}
 
 }

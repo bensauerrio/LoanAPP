@@ -61,6 +61,15 @@ public class Payment implements Serializable {
 		this.interestPaid = interestPaid;
 	}
 
+	public static Payment newPayment(final Installment lastInstallment) {
+		final Payment payment = new Payment();
+		payment.setCapitalPaid(lastInstallment.getCapitalIndicates());
+		payment.setInstallment(lastInstallment);
+		payment.setInterestPaid(lastInstallment.getInterestIndicated());
+		payment.setPaymentDate(lastInstallment.getInstallmentDateDue());
+		return payment;
+	}
+
 	public int getId() {
 		return this.id;
 	}
