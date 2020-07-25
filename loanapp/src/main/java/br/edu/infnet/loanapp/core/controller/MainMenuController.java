@@ -26,6 +26,8 @@ public class MainMenuController {
 
 	@Autowired
 	private CustomerRepository customerRepository;
+
+	@Autowired
 	private ContractRepository contractRepository;
 
 	@GetMapping
@@ -57,12 +59,11 @@ public class MainMenuController {
 		if (URLConsts.getContractPath().equalsIgnoreCase(path)) {
 			this.loadContractAttributes(modelAndView);
 		}
-		
+
 		if (URLConsts.getPaymentPath().equalsIgnoreCase(path)) {
 			this.loadPaymentAttributes(modelAndView);
-		modelAndView.setViewName(path);
 		}
-		
+
 		modelAndView.setViewName(path);
 		return modelAndView;
 	}

@@ -24,11 +24,19 @@
 							</span>
 
 							<div class="h3 mb-4 font-weight-normal">Contrato</div>
-
+							
+							
 							<div class="text-left h6 mb-3 font-weight-normal">Código do Cliente</div>
 							<label for="inputCustomerId" class="sr-only">Código do Cliente</label> 
 							<form:select path="customers" class="mb-3 form-control">
-								<option value = "-1">Selecione o Cliente</option></form:select>
+								
+								<c:forEach 
+									items="${customers}" 
+									var="customer"
+									varStatus="status">
+									 <option value = "${customer.id}">${customer.id} - ${customer.name}</option>
+								</c:forEach>
+							</form:select>
 								
 							<div class="text-left h6 mb-3 font-weight-normal">Taxa de Juros</div>
 							<label for="inputInterest" class="sr-only">Taxa de Juros</label> 
