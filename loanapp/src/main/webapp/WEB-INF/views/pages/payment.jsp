@@ -47,11 +47,11 @@
 								
 							<div class="text-left h6 mb-3 font-weight-normal">Valor do Capital Pago</div>
 							<label for="inputCapitalPaid" class="sr-only">Valor de Capital</label> 
-							<input type="number" id="inputCapitalPaid" min="0" value="0" step="any" class="mb-3 form-control" placeholder="00.00" required autofocus>
+							<input type="number" id="inputCapitalPaid" value="${payment.capitalPaid}" min="0" step="any" class="mb-3 form-control" placeholder="00.00" required>
 
 							<div class="text-left h6 mb-3 font-weight-normal">Valor do Juros Pago</div>
 							<label for="inputInterestPaid" class="sr-only">Valor de Juros</label> 
-							<input type="number" id="inputInterestPaid" min="0" value="0" step="any" class="mb-3 form-control" placeholder="00.00" required autofocus>
+							<input type="number" id="inputInterestPaid" min="0" value="${payment.interestPaid}" step="any" class="mb-3 form-control" placeholder="00.00" required>
 
 
 							<button class="btn btn-sm btn-outline-dark btn-block mt-3" type="submit">Confirmar</button>

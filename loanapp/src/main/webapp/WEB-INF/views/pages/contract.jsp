@@ -33,17 +33,17 @@
 								
 							<div class="text-left h6 mb-3 font-weight-normal">Taxa de Juros</div>
 							<label for="inputInterest" class="sr-only">Valor de Capital</label> 
-							<input type="number" id="inputInterest" min="0" value="0" step="any" 
+							<input type="number" id="inputInterest" value="${contract.interstRate}" min="0" step="any" 
 								class="mb-3 form-control" placeholder="00.00" required>
 
 							<div class="text-left h6 mb-3 font-weight-normal">Valor do Empréstimo</div>
 							<label for="inputLoan" class="sr-only">Valor do Empréstimo</label> 
-							<input type="number" id="inputLoan" min="0" value="0" step="any"
+							<input type="number" id="inputLoan" value="${contract.loanAmount}" min="0" step="any"
 								class="mb-3 form-control" placeholder="00.00" required>
 								
 							<div class="text-left h6 mb-3 font-weight-normal">Quantidade de Parcelas</div>
 							<label for="inputQttInstallments" class="sr-only">Quantidade de Parcelas</label> 
-							<input type="number" id="inputQttInstallments" min="0" value="0"
+							<input type="number" id="inputQttInstallments" value="${contract.qttInstallments}" min="0"
 								class="mb-3 form-control" placeholder="0" required>
 								
 							<button class="btn btn-sm btn-outline-info btn-block mt-3"
@@ -72,22 +72,27 @@
 					<i class="fas fa-circle fa-stack-2x"></i> 
 					<i class="fas fa-clone fa-stack-1x fa-inverse"></i>
 				</span>
-				<div class="h4 mb-4 font-weight-normal text-center">Simular</div>
+				<div class="h4 mb-4 font-weight-normal text-center">Simulação</div>
 				<table class="table table-borderless table-secondary h-100">
 				  <thead>
 				    <tr>
 				      <th scope="col">#</th>
-				      <th scope="col">Info</th>
-				      <th scope="col">Info</th>
-				      <th scope="col">Info</th>
+				      <th scope="col">Data do pagamento</th>
+				      <th scope="col">Parcela</th>
+				      <th scope="col">Capital</th>
+				      <th scope="col">Juros</th>
+				      <th scope="col">Total</th>
 				    </tr>
 				  </thead>
 				  <tbody>
 				    <tr>
 				      <th scope="row">1</th>
-				      <td>Info</td>
-				      <td>Info</td>
-				      <td>Info</td>
+				      <td>...</td>
+				      <td>...</td>
+				      <td>...</td>
+				      <td>...</td>
+				      <td>...</td>
+				      <td>...</td>
 				    </tr>
 				  </tbody>
 				</table>
@@ -95,6 +100,7 @@
 		    </div>
 		  </div>
 		</div>
+		
 		<nav class="navbar fixed-bottom navbar-light bg-light">
 			<div class="row">
 				<div class="col-md">
