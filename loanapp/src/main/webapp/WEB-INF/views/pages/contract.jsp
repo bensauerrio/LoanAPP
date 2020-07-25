@@ -72,22 +72,27 @@
 					<i class="fas fa-circle fa-stack-2x"></i> 
 					<i class="fas fa-clone fa-stack-1x fa-inverse"></i>
 				</span>
-				<div class="h4 mb-4 font-weight-normal text-center">Simular</div>
+				<div class="h4 mb-4 font-weight-normal text-center">Simulação</div>
 				<table class="table table-borderless table-secondary h-100">
 				  <thead>
 				    <tr>
 				      <th scope="col">#</th>
-				      <th scope="col">Info</th>
-				      <th scope="col">Info</th>
-				      <th scope="col">Info</th>
+				      <th scope="col">Data do pagamento</th>
+				      <th scope="col">Parcela</th>
+				      <th scope="col">Capital</th>
+				      <th scope="col">Juros</th>
+				      <th scope="col">Total</th>
 				    </tr>
 				  </thead>
 				  <tbody>
 				    <tr>
 				      <th scope="row">1</th>
-				      <td>Info</td>
-				      <td>Info</td>
-				      <td>Info</td>
+				      <td>...</td>
+				      <td>...</td>
+				      <td>...</td>
+				      <td>...</td>
+				      <td>...</td>
+				      <td>...</td>
 				    </tr>
 				  </tbody>
 				</table>
@@ -95,6 +100,7 @@
 		    </div>
 		  </div>
 		</div>
+		
 		<nav class="navbar fixed-bottom navbar-light bg-light">
 			<div class="row">
 				<div class="col-md">
