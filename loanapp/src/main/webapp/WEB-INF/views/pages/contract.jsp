@@ -27,7 +27,8 @@
 
 							<div class="text-left h6 mb-3 font-weight-normal">Código do Cliente</div>
 							<label for="inputCustomerId" class="sr-only">Código do Cliente</label> 
-							<input type="number" id="inputCustomerId" class="mb-3 form-control" placeholder="0" required autofocus> 
+							<form:select path="idCustomer" class="mb-3 form-control">
+								<option value = "-1">Selecione o Cliente</option></form:select>
 								
 							<div class="text-left h6 mb-3 font-weight-normal">Taxa de Juros</div>
 							<label for="inputInterest" class="sr-only">Valor de Capital</label> 
