@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.edu.infnet.loanapp.business.repository.CustomerRepository;
+import br.edu.infnet.loanapp.core.dto.ContractDTO;
+
 @Entity
 @Table(name = "LN_CONTRACT")
 public class Contract implements Serializable {
@@ -57,9 +60,16 @@ public class Contract implements Serializable {
 	private int qttInstallments;
 
 	public static Contract fromDTO(final ContractDTO dto) {
-		// TODO Instanciar um novo Contrato e depois setar os atributros no contrato;
-
-		return null;
+		Contract contract = new Contract();
+		//contract.setCustomer((dto.getCustomerId()); construir o getById
+		//contract.setCollector(dto.getCollectorId()); 
+		contract.setInterestRate(dto.getInterestRate());
+		contract.setLoanAmount(dto.getLoanAmount());
+		contract.setLoanPaymentAmountDue(dto.getLoanPaymentAmountDue());
+		contract.setQttInstallments(dto.getQttInstallments());
+		contract.setStartDate(dto.getStartDate());
+		
+		return contract;
 	}
 
 	public int getId() {

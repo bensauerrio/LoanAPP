@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.edu.infnet.loanapp.core.dto.ContractDTO;
+import br.edu.infnet.loanapp.core.dto.PaymentDTO;
+
 @Entity
 @Table(name = "LN_PAYMENT")
 public class Payment implements Serializable {
@@ -43,6 +46,15 @@ public class Payment implements Serializable {
 	@Column(name = "interestPaid", nullable = true)
 	private double interestPaid;
 
+	public static Payment fromDTO(final PaymentDTO dto) {
+		Payment payment = new Payment();
+		payment.setCapitalPaid(dto.getCapitalPaid());
+		payment.setInterestPaid(dto.getInterestPaid());
+		payment.setPaymentDate(dto.getPaymentDate());		
+		//payment.setInstallment(dto.getInstallmentId());
+		return payment;
+	}
+	
 	public Payment() {
 		super();
 	}
