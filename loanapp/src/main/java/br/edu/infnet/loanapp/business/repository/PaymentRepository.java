@@ -4,13 +4,17 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import br.edu.infnet.loanapp.business.model.Contract;
 import br.edu.infnet.loanapp.business.model.Payment;
 
 public interface PaymentRepository extends JpaRepository<Payment, Integer> {
 
-	@Query(value = "", nativeQuery = true)
-	Optional<Contract> findPaymentByInstallment(int id);
+	@Query(value = "select  " //
+			+ "	LN_PAYMENT.*  " //
+			+ " from LN_PAYMENT " //
+			+ " where LN_PAYMENT.installmentId = :installmentId", //
+			nativeQuery = true)
+	Optional<Payment> findLastPaymentByInstallment(@Param("installmentId") int installmentId);
 
 }

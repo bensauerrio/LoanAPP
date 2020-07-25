@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.infnet.loanapp.business.model.Contract;
 import br.edu.infnet.loanapp.business.model.Installment;
+import br.edu.infnet.loanapp.business.model.Payment;
 import br.edu.infnet.loanapp.business.repository.PaymentRepository;
 import br.edu.infnet.loanapp.core.utils.DateUtils;
 
@@ -45,9 +46,36 @@ public class InstallmentService {
 		if (!optInstallment.isPresent()) {
 			installment = this.getNewInstallmentFromContract(contract);
 		} else {
-			final Optional<Contract> optContract = this.paymentRepository.findPaymentByInstallment(installment.getId());
+			final Optional<Payment> optPayment = this.paymentRepository
+					.findLastPaymentByInstallment(optInstallment.get().getId());
+			if (!optPayment.isPresent()) {
+				throw new RuntimeException("Nenhum pagamento anterior encontrado");
+			}
+
+			installment = this.processNextInstallment(optPayment.get());
+
 		}
 
+		return installment;
+	}
+
+	private Installment processNextInstallment(final Payment payment) {
+		final Installment lastInstallment = payment.getInstallment();
+		final Contract contract = lastInstallment.getContract();
+		final double basicInstallment = this.getBasicInstallment(//
+				contract.getLoanPaymentAmountDue(), //
+				contract.getInterestRate(), //
+				lastInstallment.getInstallmentNbr() - 1);
+		final double interestedRate = Precision.round(//
+				contract.getInterestRate() * contract.getLoanPaymentAmountDue(), //
+				2);
+
+		final Installment installment = new Installment();
+		installment.setCapitalIndicates(Precision.round(basicInstallment - interestedRate, 2));
+		installment.setContract(contract);
+		installment.setInstallmentDateDue(DateUtils.addMonth(lastInstallment.getInstallmentDateDue(), 1));
+		installment.setInstallmentNbr(lastInstallment.getInstallmentNbr() - 1);
+		installment.setInterestIndicated(interestedRate);
 		return installment;
 	}
 
