@@ -43,18 +43,23 @@ public class Installment implements Serializable, Comparable<Installment> {
 	@Temporal(TemporalType.DATE)
 	private Date installmentDateDue;
 
+	@Column(name = "installmentNbr", nullable = false)
+	private int installmentNbr;
+
 	public Installment(//
 			final int id, //
 			final Contract contract, //
 			final double interestIndicated, //
 			final double capitalIndicates, //
-			final Date installmentDateDue) {
+			final Date installmentDateDue, //
+			final int installmentNbr) {
 		super();
 		this.id = id;
 		this.contract = contract;
 		this.interestIndicated = interestIndicated;
 		this.capitalIndicates = capitalIndicates;
 		this.installmentDateDue = installmentDateDue;
+		this.installmentNbr = installmentNbr;
 	}
 
 	public Installment() {
@@ -101,19 +106,12 @@ public class Installment implements Serializable, Comparable<Installment> {
 		return this.installmentDateDue;
 	}
 
-	@Override
-	public String toString() {
-		return String.format(
-				"Installment [id=%s, contract=%s, interestIndicated=%s, capitalIndicates=%s, installmentDateDue=%s]",
-				this.id, this.contract, this.interestIndicated, this.capitalIndicates, this.installmentDateDue);
+	public int getInstallmentNbr() {
+		return this.installmentNbr;
 	}
 
-	@Override
-	public int compareTo(final Installment o) {
-		if (o == null) {
-			return 1;
-		}
-		return this.getInstallmentDateDue().getTime() < o.getInstallmentDateDue().getTime() ? -1 : 1;
+	public void setInstallmentNbr(final int installmentNbr) {
+		this.installmentNbr = installmentNbr;
 	}
 
 	@Override
@@ -126,6 +124,7 @@ public class Installment implements Serializable, Comparable<Installment> {
 		result = prime * result + ((this.contract == null) ? 0 : this.contract.hashCode());
 		result = prime * result + this.id;
 		result = prime * result + ((this.installmentDateDue == null) ? 0 : this.installmentDateDue.hashCode());
+		result = prime * result + this.installmentNbr;
 		temp = Double.doubleToLongBits(this.interestIndicated);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
@@ -154,9 +153,19 @@ public class Installment implements Serializable, Comparable<Installment> {
 				return false;
 		} else if (!this.installmentDateDue.equals(other.installmentDateDue))
 			return false;
+		if (this.installmentNbr != other.installmentNbr)
+			return false;
 		if (Double.doubleToLongBits(this.interestIndicated) != Double.doubleToLongBits(other.interestIndicated))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(final Installment o) {
+		if (o == null) {
+			return 1;
+		}
+		return this.getInstallmentDateDue().getTime() < o.getInstallmentDateDue().getTime() ? -1 : 1;
 	}
 
 }
