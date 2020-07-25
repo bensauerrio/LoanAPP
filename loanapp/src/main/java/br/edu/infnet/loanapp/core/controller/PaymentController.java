@@ -31,8 +31,6 @@ public class PaymentController {
 
 	@PostMapping("/payment")
 	public ModelAndView contractForm(@ModelAttribute("paymentForm") final PaymentDTO paymentDto, final Model model) {
-		// Validar os dados do DTO
-
 		Payment payment = Payment.fromDTO(paymentDto);
 		this.paymentService.registerPayment(payment);
 		model.addAttribute("message", "Pagamento realizado com sucesso!");

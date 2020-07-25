@@ -31,8 +31,6 @@ public class ContractController {
 
 	@PostMapping("/contract")
 	public ModelAndView contractForm(@ModelAttribute("contractForm") final ContractDTO contractDto, final Model model) {
-		// Validar os dados do DTO
-
 		Contract contract = Contract.fromDTO(contractDto);
 		this.contractService.registerContract(contract);
 		model.addAttribute("message", "Contrato salvo com sucesso!");
