@@ -30,4 +30,14 @@ public class ContractService {
 
 	}
 
+	public void registerContract(final Contract contract) {
+		if (contract == null) {
+			throw new RuntimeException("O contrato está inválido");
+		}
+
+		contract.setLoanPaymentAmountDue(contract.getLoanAmount());
+
+		this.contractRepository.save(contract);
+	}
+
 }

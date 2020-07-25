@@ -55,7 +55,13 @@ public class Contract implements Serializable {
 
 	@Column(name = "qttInstallments", nullable = false)
 	private int qttInstallments;
-	
+
+	public static Contract fromDTO(final ContractDTO dto) {
+		// TODO Instanciar um novo Contrato e depois setar os atributros no contrato;
+
+		return null;
+	}
+
 	public int getId() {
 		return this.id;
 	}
@@ -179,8 +185,8 @@ public class Contract implements Serializable {
 			return false;
 		}
 		if (this.qttInstallments != other.qttInstallments) {
-				return false;
-			}
+			return false;
+		}
 		if (Double.doubleToLongBits(this.loanPaymentAmountDue) != Double.doubleToLongBits(other.loanPaymentAmountDue))
 			return false;
 		if (this.startDate == null) {
