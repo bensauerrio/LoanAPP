@@ -14,9 +14,7 @@
 	<div class="container center-contract">
 		<div class="row">
 			<div class="col-md">
-				<form class="form-signin"
-					action="${pageContext.request.contextPath}/contract"
-					modelAttribute="contractForm" method="post">
+				<form class="form-signin" action="${pageContext.request.contextPath}/contract" modelAttribute="contractForm" method="post">
 
 					<div class="card shadow" style="width: 18rem;">
 						<div class="card-body">
