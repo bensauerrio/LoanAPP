@@ -27,22 +27,22 @@
 
 							<div class="text-left h6 mb-3 font-weight-normal">Código do Cliente</div>
 							<label for="inputCustomerId" class="sr-only">Código do Cliente</label> 
-							<form:select path="idCustomer" class="mb-3 form-control">
+							<form:select path="customers" class="mb-3 form-control">
 								<option value = "-1">Selecione o Cliente</option></form:select>
 								
 							<div class="text-left h6 mb-3 font-weight-normal">Taxa de Juros</div>
-							<label for="inputInterest" class="sr-only">Valor de Capital</label> 
-							<input type="number" id="inputInterest" value="${contract.interstRate}" min="0" step="any" 
+							<label for="inputInterest" class="sr-only">Taxa de Juros</label> 
+							<input type="number" id="inputInterest" name="interestRate" min="0" step="any" 
 								class="mb-3 form-control" placeholder="00.00" required>
 
 							<div class="text-left h6 mb-3 font-weight-normal">Valor do Empréstimo</div>
 							<label for="inputLoan" class="sr-only">Valor do Empréstimo</label> 
-							<input type="number" id="inputLoan" value="${contract.loanAmount}" min="0" step="any"
+							<input type="number" id="inputLoan" name="loanAmount" min="0" step="any"
 								class="mb-3 form-control" placeholder="00.00" required>
 								
 							<div class="text-left h6 mb-3 font-weight-normal">Quantidade de Parcelas</div>
 							<label for="inputQttInstallments" class="sr-only">Quantidade de Parcelas</label> 
-							<input type="number" id="inputQttInstallments" value="${contract.qttInstallments}" min="0"
+							<input type="number" id="inputQttInstallments" name="qttInstallments" min="0"
 								class="mb-3 form-control" placeholder="0" required>
 								
 							<button class="btn btn-sm btn-outline-info btn-block mt-3"

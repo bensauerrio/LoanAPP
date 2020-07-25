@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.infnet.loanapp.business.model.Client;
+import br.edu.infnet.loanapp.business.model.Contract;
 import br.edu.infnet.loanapp.business.model.Customer;
+import br.edu.infnet.loanapp.business.repository.ContractRepository;
 import br.edu.infnet.loanapp.business.repository.CustomerRepository;
 import br.edu.infnet.loanapp.business.service.FunctionalitySingleton;
 import br.edu.infnet.loanapp.core.constants.URLConsts;
@@ -24,6 +26,7 @@ public class MainMenuController {
 
 	@Autowired
 	private CustomerRepository customerRepository;
+	private ContractRepository contractRepository;
 
 	@GetMapping
 	public ModelAndView doGet(//
@@ -54,7 +57,12 @@ public class MainMenuController {
 		if (URLConsts.getContractPath().equalsIgnoreCase(path)) {
 			this.loadContractAttributes(modelAndView);
 		}
-
+		
+		if (URLConsts.getPaymentPath().equalsIgnoreCase(path)) {
+			this.loadPaymentAttributes(modelAndView);
+		modelAndView.setViewName(path);
+		}
+		
 		modelAndView.setViewName(path);
 		return modelAndView;
 	}
@@ -64,4 +72,8 @@ public class MainMenuController {
 		modelAndView.addObject("customers", customers);
 	}
 
+	private void loadPaymentAttributes(final ModelAndView modelAndView) {
+		final List<Contract> contracts = this.contractRepository.findAll();
+		modelAndView.addObject("contracts", contracts);
+	}
 }

@@ -29,7 +29,7 @@
 							<input type="number" id="inputEmail" class="form-control" placeholder="Código do Cliente" name="customerCode" required autofocus>
 							 
 							<label for="inputPassword" class="sr-only">Password</label> 
-							<input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+							<input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password">
 
 							<div class="form-check form-check-inline mt-2 mb-2">
 								<input class="form-check-input" type="radio" name="clientType" id="inlineRadio1" value="1" checked> 
