@@ -62,7 +62,7 @@
 		</div>
 		
 		<div class="modal fade" id="simularLoanApp" tabindex="-1" role="dialog" aria-labelledby="simularLoanApp" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-centered" role="document">
+		  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 		  	<div class="modal-content">
 		      <div class="modal-body">
 		      	<button type="button" class="close close-dark mr-3" data-dismiss="modal" aria-label="Fechar">
@@ -73,7 +73,7 @@
 					<i class="fas fa-clone fa-stack-1x fa-inverse"></i>
 				</span>
 				<div class="h4 mb-4 font-weight-normal text-center">Simulação</div>
-				<table class="table table-borderless table-secondary h-100">
+				<table class="table table-borderless table-secondary h-100 mt-4">
 				  <thead>
 				    <tr>
 				      <th scope="col">#</th>
@@ -87,7 +87,6 @@
 				  <tbody>
 				    <tr>
 				      <th scope="row">1</th>
-				      <td>...</td>
 				      <td>...</td>
 				      <td>...</td>
 				      <td>...</td>
