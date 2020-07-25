@@ -173,10 +173,12 @@ public class PaymentIntegratedTest {
 		assertEquals(800.00, payment.getInterestPaid(), 0);
 		assertEquals(4, installmentFound.getInstallmentNbr());
 
+		payment.setInterestPaid(500);
+
 		this.paymentService.registerPayment(payment);
 
 		contractFound = this.contractRepository.findAll().stream().findFirst().get();
-		assertEquals(15290.20, contractFound.getLoanPaymentAmountDue(), 0);
+		assertEquals(15590.20, contractFound.getLoanPaymentAmountDue(), 0);
 		payment = this.paymentService.getBasicPaymentBasedOnInstallment(contractFound);
 		installmentFound = payment.getInstallment();
 
@@ -184,14 +186,16 @@ public class PaymentIntegratedTest {
 		assertNotNull(payment);
 		assertEquals(installmentFound.getCapitalIndicates(), payment.getCapitalPaid(), 0);
 		assertEquals(installmentFound.getInterestIndicated(), payment.getInterestPaid(), 0);
-		assertEquals(4898.19, payment.getCapitalPaid(), 0);
-		assertEquals(611.61, payment.getInterestPaid(), 0);
+		assertEquals(4994.30, payment.getCapitalPaid(), 0);
+		assertEquals(623.61, payment.getInterestPaid(), 0);
 		assertEquals(3, installmentFound.getInstallmentNbr());
 
+		payment.setCapitalPaid(5000);
+
 		this.paymentService.registerPayment(payment);
 
 		contractFound = this.contractRepository.findAll().stream().findFirst().get();
-		assertEquals(10392.01, contractFound.getLoanPaymentAmountDue(), 0);
+		assertEquals(10590.20, contractFound.getLoanPaymentAmountDue(), 0);
 		payment = this.paymentService.getBasicPaymentBasedOnInstallment(contractFound);
 		installmentFound = payment.getInstallment();
 
@@ -199,14 +203,14 @@ public class PaymentIntegratedTest {
 		assertNotNull(payment);
 		assertEquals(installmentFound.getCapitalIndicates(), payment.getCapitalPaid(), 0);
 		assertEquals(installmentFound.getInterestIndicated(), payment.getInterestPaid(), 0);
-		assertEquals(5094.12, payment.getCapitalPaid(), 0);
-		assertEquals(415.68, payment.getInterestPaid(), 0);
+		assertEquals(5191.27, payment.getCapitalPaid(), 0);
+		assertEquals(423.61, payment.getInterestPaid(), 0);
 		assertEquals(2, installmentFound.getInstallmentNbr());
 
 		this.paymentService.registerPayment(payment);
 
 		contractFound = this.contractRepository.findAll().stream().findFirst().get();
-		assertEquals(5297.89, contractFound.getLoanPaymentAmountDue(), 0);
+		assertEquals(5398.93, contractFound.getLoanPaymentAmountDue(), 0);
 		payment = this.paymentService.getBasicPaymentBasedOnInstallment(contractFound);
 		installmentFound = payment.getInstallment();
 
@@ -214,8 +218,8 @@ public class PaymentIntegratedTest {
 		assertNotNull(payment);
 		assertEquals(installmentFound.getCapitalIndicates(), payment.getCapitalPaid(), 0);
 		assertEquals(installmentFound.getInterestIndicated(), payment.getInterestPaid(), 0);
-		assertEquals(5297.89, payment.getCapitalPaid(), 0);
-		assertEquals(211.92, payment.getInterestPaid(), 0);
+		assertEquals(5398.93, payment.getCapitalPaid(), 0);
+		assertEquals(215.96, payment.getInterestPaid(), 0);
 		assertEquals(1, installmentFound.getInstallmentNbr());
 
 	}

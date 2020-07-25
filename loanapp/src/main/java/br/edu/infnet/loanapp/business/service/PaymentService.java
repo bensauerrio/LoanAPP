@@ -27,10 +27,16 @@ public class PaymentService {
 			throw new RuntimeException("Nenhuma parcela foi encontrada");
 		}
 
-		return Payment.newPayment(lastInstallment);
+		return lastInstallment.getInstallmentNbr() == 0 ? null : Payment.newPayment(lastInstallment);
 	}
 
 	public void registerPayment(final Payment payment) {
+		if (payment.isLastPayment() //
+				&& (payment.getCapitalPaid() == payment.getInstallment().getCapitalIndicates() //
+						|| payment.getInterestPaid() == payment.getInstallment().getInterestIndicated())) {
+			throw new RuntimeException("Os valores dá ultima parcela devem ser os valores indicados.");
+		}
+
 		final Contract contract = payment.getInstallment().getContract();
 		this.contractService.resgisterPayment(//
 				contract, //

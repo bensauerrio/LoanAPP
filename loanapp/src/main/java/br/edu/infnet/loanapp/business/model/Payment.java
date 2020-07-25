@@ -14,8 +14,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
-import br.edu.infnet.loanapp.core.dto.ContractDTO;
 import br.edu.infnet.loanapp.core.dto.PaymentDTO;
 
 @Entity
@@ -47,14 +47,14 @@ public class Payment implements Serializable {
 	private double interestPaid;
 
 	public static Payment fromDTO(final PaymentDTO dto) {
-		Payment payment = new Payment();
+		final Payment payment = new Payment();
 		payment.setCapitalPaid(dto.getCapitalPaid());
 		payment.setInterestPaid(dto.getInterestPaid());
-		payment.setPaymentDate(dto.getPaymentDate());		
-		//payment.setInstallment(dto.getInstallmentId());
+		payment.setPaymentDate(dto.getPaymentDate());
+		// payment.setInstallment(dto.getInstallmentId());
 		return payment;
 	}
-	
+
 	public Payment() {
 		super();
 	}
@@ -169,6 +169,11 @@ public class Payment implements Serializable {
 		} else if (!this.paymentDate.equals(other.paymentDate))
 			return false;
 		return true;
+	}
+
+	@Transient
+	public boolean isLastPayment() {
+		return 1 == this.getInstallment().getInstallmentNbr();
 	}
 
 }

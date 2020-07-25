@@ -46,6 +46,9 @@ public class InstallmentService {
 		if (!optInstallment.isPresent()) {
 			installment = this.getNewInstallmentFromContract(contract);
 		} else {
+			if (optInstallment.isPresent() && optInstallment.get().getInstallmentNbr() == 1) {
+				return optInstallment.get();
+			}
 			final Optional<Payment> optPayment = this.paymentRepository
 					.findLastPaymentByInstallment(optInstallment.get().getId());
 			if (!optPayment.isPresent()) {
