@@ -100,4 +100,8 @@ public class InstallmentService {
 		return installment;
 	}
 
+	public void registerInstallment(final Installment installment) {
+		this.installmentRepository.save(installment);
+	}
+
 }

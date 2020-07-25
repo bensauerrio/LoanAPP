@@ -20,7 +20,7 @@ public class ContractService {
 			final double capitalPaid) {
 
 		contract.setLoanPaymentAmountDue(Precision.round(//
-				(contract.getLoanAmount() //
+				(contract.getLoanPaymentAmountDue() //
 						+ interestedIndicated //
 						- interestedPaid //
 						- capitalPaid //
@@ -37,7 +37,7 @@ public class ContractService {
 
 		contract.setLoanPaymentAmountDue(contract.getLoanAmount());
 
-		this.contractRepository.save(contract);
+		this.contractRepository.saveAndFlush(contract);
 	}
 
 }

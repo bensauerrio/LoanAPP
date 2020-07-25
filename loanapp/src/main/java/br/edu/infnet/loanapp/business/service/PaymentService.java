@@ -38,7 +38,9 @@ public class PaymentService {
 				payment.getInterestPaid(), //
 				payment.getCapitalPaid());
 
-		this.paymentRepository.save(payment);
+		this.installmentService.registerInstallment(payment.getInstallment());
+
+		this.paymentRepository.saveAndFlush(payment);
 	}
 
 }
