@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.edu.infnet.loanapp.business.model.Contract;
 import br.edu.infnet.loanapp.business.model.Installment;
+import br.edu.infnet.loanapp.business.repository.PaymentRepository;
 import br.edu.infnet.loanapp.core.utils.DateUtils;
 
 @Service
@@ -16,14 +17,23 @@ public class InstallmentService {
 	@Autowired
 	private InstallmenteRepository installmentRepository;
 
+	@Autowired
+	private PaymentRepository paymentRepository;
+
 	public double calculateBasicInstallmentBasedOnPrice(final Contract contract) {
 		if (contract == null) {
 			throw new RuntimeException("O contrato está inválido");
 		}
 
-		return Precision.round(contract.getLoanAmount() * (//
-		contract.getInterestRate() / //
-				(1 - Math.pow(1 + contract.getInterestRate(), -contract.getQttInstallments()))), 2);
+		return this.getBasicInstallment(contract.getLoanAmount(), contract.getInterestRate(),
+				contract.getQttInstallments());
+	}
+
+	private double getBasicInstallment(final double loanAmount, final double interestRate,
+			final int installmentsQuantity) {
+		return Precision.round(loanAmount * (//
+		interestRate / //
+				(1 - Math.pow(1 + interestRate, -installmentsQuantity))), 2);
 	}
 
 	public Installment calculateInstallmentFromContract(final Contract contract) {
@@ -31,14 +41,14 @@ public class InstallmentService {
 			throw new RuntimeException("Para se iniciar o cálculo, informe um contrato válido");
 		}
 		final Optional<Installment> optInstallment = this.installmentRepository.findLastInstallment(contract.getId());
+		Installment installment = null;
 		if (!optInstallment.isPresent()) {
-			final Installment installment = this.getNewInstallmentFromContract(contract);
-
-			return installment;
-
+			installment = this.getNewInstallmentFromContract(contract);
+		} else {
+			final Optional<Contract> optContract = this.paymentRepository.findPaymentByInstallment(installment.getId());
 		}
 
-		return null;
+		return installment;
 	}
 
 	private Installment getNewInstallmentFromContract(final Contract contract) {
