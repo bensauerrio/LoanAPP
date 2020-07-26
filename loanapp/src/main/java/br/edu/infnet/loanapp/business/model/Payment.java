@@ -16,7 +16,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
-import br.edu.infnet.loanapp.business.repository.CustomerRepository;
 import br.edu.infnet.loanapp.business.service.InstallmenteRepository;
 import br.edu.infnet.loanapp.core.dto.PaymentDTO;
 import br.edu.infnet.loanapp.core.utils.BeanUtils;
@@ -53,15 +52,16 @@ public class Payment implements Serializable {
 		final Payment payment = new Payment();
 		payment.setCapitalPaid(dto.getCapitalPaid());
 		payment.setInterestPaid(dto.getInterestPaid());
-		payment.setPaymentDate(dto.getPaymentDate());
-		payment.setInstallment(getInstallmenteRepository().findById(dto.getInstallmentId()).orElseThrow(() -> new RuntimeException("A parcela não foi encontrada!"))); 
+		payment.setPaymentDate(new Date());
+		payment.setInstallment(getInstallmenteRepository().findById(dto.getInstallmentId())
+				.orElseThrow(() -> new RuntimeException("A parcela não foi encontrada!")));
 		return payment;
 	}
 
 	private static InstallmenteRepository getInstallmenteRepository() {
 		return BeanUtils.getBean(InstallmenteRepository.class);
 	}
-	
+
 	public Payment() {
 		super();
 	}

@@ -1,5 +1,7 @@
 package br.edu.infnet.loanapp.core.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,7 +47,7 @@ public class PaymentController implements BasicController {
 		return new ModelAndView(URLConsts.getPaymentPath());
 	}
 
-	@GetMapping
+	@GetMapping("/contract")
 	public ModelAndView showPayments(//
 			@RequestParam(value = "id", required = true) final int id, //
 			final Model model) {
@@ -63,7 +65,44 @@ public class PaymentController implements BasicController {
 				throw new RuntimeException("O contrato não é do cliente.");
 			}
 
-//			model.addAttribute("payments", attributeValue);
+			final List<Payment> payments = this.paymentRepository.findAllPaymentByContractId(contract.getId());
+
+			model.addAttribute("payments", payments);
+			model.addAttribute("needMorePayment", payments//
+					.stream()//
+					.noneMatch(item -> item.getInstallment().getInstallmentNbr() == 1));
+			model.addAttribute("contract", contract);
+		} catch (final RuntimeException e) {
+			model.addAttribute("message", e.getMessage());
+		}
+
+		return modelAndView;
+	}
+
+	@GetMapping
+	public ModelAndView goToPayment(//
+			@RequestParam(value = "id", required = true) final int id, //
+			final Model model) {
+		ModelAndView modelAndView = new ModelAndView(URLConsts.getPaymentListPath());
+		try {
+
+			modelAndView = new ModelAndView(URLConsts.getPaymentListPath());
+
+			final Customer client = (Customer) model.getAttribute("clientSession");
+
+			final Contract contract = this.contractRepository.findById(id)
+					.orElseThrow(() -> new RuntimeException("Nenhum contrato foi encontrado"));
+
+			if (contract.getCustomer().getId() != client.getId()) {
+				throw new RuntimeException("O contrato não é do cliente.");
+			}
+
+			final List<Payment> payments = this.paymentRepository.findAllPaymentByContractId(contract.getId());
+
+			model.addAttribute("payments", payments);
+			model.addAttribute("needMorePayment", payments//
+					.stream()//
+					.noneMatch(item -> item.getInstallment().getInstallmentNbr() == 1));
 		} catch (final RuntimeException e) {
 			model.addAttribute("message", e.getMessage());
 		}

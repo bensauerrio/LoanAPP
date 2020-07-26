@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,74 +44,65 @@
 							class="fas fa-file-signature fa-stack-1x fa-inverse"></i>
 						</span>
 
-						<div class="h3 mb-4 font-weight-normal">Listar Contratos</div>
+						<div class="h3 mb-4 font-weight-normal">Listar Pagamentos</div>
+						
 
 						<div class="accordion text-left" id="accordion">
-							<div class="card">
-								<div class="card-header" id="headingOne">
-									<h5 class="mb-0">
-										<button class="btn" type="button" data-toggle="collapse"
-											data-target="#collapseOne" aria-expanded="true"
-											aria-controls="collapseOne">Contrato #1</button>
-									</h5>
+						
+							<c:forEach 
+								items="${payments}" 
+								var="payment"
+								varStatus="status"> 
+							
+								<div class="card">
+									<div class="card-header" id="heading${payment.id}">
+										<h5 class="mb-0">
+											<button class="btn" type="button" data-toggle="collapse"
+												data-target="#collapse${payment.id}" aria-expanded="true"
+												aria-controls="collapse${payment.id}">Pagamento #${payment.id} - Parcela #${payment.installment.installmentNbr}</button>
+										</h5>
+									</div>
+	
+									<div id="collapse${contract.id}" class="collapse"
+										aria-labelledby="headingOne" data-parent="#accordion">
+										<div class="card-body">
+											<p>
+												<b>Código do pagamento: </b>${payment.id}
+											</p>
+											<p>
+												<b>Nome do coletor: </b>${payment.installment.contract.collector.name}
+											</p>
+											<p>
+												<b>Capital pago: </b>R$ <fmt:formatNumber 
+																				type="number" 
+																				minFractionDigits="2" 
+																				maxFractionDigits="2" 
+																				value="${payment.capitalPaid}" />
+											</p>
+											<p>
+												<b>Juro pago: </b>R$ <fmt:formatNumber 
+																				type="number" 
+																				minFractionDigits="2" 
+																				maxFractionDigits="2" 
+																				value="${payment.interestPaid}" />
+											</p>
+											
+										</div>
+									</div>
 								</div>
+							</c:forEach>
 
-								<div id="collapseOne" class="collapse"
-									aria-labelledby="headingOne" data-parent="#accordion">
-									<div class="card-body">
-										<p>
-											<b>Código do contrato: </b>...
-										</p>
-										<p>
-											<b>Nome do coletor: </b>...
-										</p>
-										<p>
-											<b>Total emprestado: </b>...
-										</p>
-										<p>
-											<b>Saldo: </b>...
-										</p>
-										<button class="btn btn-sm btn btn-outline-dark">Lista
-											de pagamentos</button>
-									</div>
-								</div>
-							</div>
-							<div class="card">
-								<div class="card-header" id="headingTwo">
-									<h5 class="mb-0">
-										<button class="btn collapsed" type="button"
-											data-toggle="collapse" data-target="#collapseTwo"
-											aria-expanded="false" aria-controls="collapseTwo">
-											Contrato #2</button>
-									</h5>
-								</div>
-								<div id="collapseTwo" class="collapse"
-									aria-labelledby="headingTwo" data-parent="#accordion">
-									<div class="card-body">
-										<p>
-											<b>Código do contrato: </b>...
-										</p>
-										<p>
-											<b>Nome do coletor: </b>...
-										</p>
-										<p>
-											<b>Total emprestado: </b>...
-										</p>
-										<p>
-											<b>Saldo: </b>...
-										</p>
-										<button class="btn btn-sm btn btn-outline-dark">Lista
-											de pagamentos</button>
-									</div>
-								</div>
-							</div>
 						</div>
 
+						<!--
+							BEN 
+						-->
+						<!-- <a
+												href="${pageContext.request.contextPath}/payment?id=${contract.id}"
+												class="btn btn-sm btn btn-outline-dark">Lista de pagamentos</a> -->
 						<label id="alertMessage" class="sr-only">${message}</label>
 
 					</div>
-				</div>
-				</form>
 			</div>
 		</div>
 
@@ -124,7 +116,6 @@
 	</div>
 
 	<script src="component/alert/alert.component.js"></script>
-	<script src="js/login.js"></script>
 </body>
 
 </html>

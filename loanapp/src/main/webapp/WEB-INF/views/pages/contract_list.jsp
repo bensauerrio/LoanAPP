@@ -67,7 +67,7 @@
 										aria-labelledby="headingOne" data-parent="#accordion">
 										<div class="card-body">
 											<p>
-												<b>Cï¿½digo do contrato: </b>${contract.id}
+												<b>Código do contrato: </b>${contract.id}
 											</p>
 											<p>
 												<b>Nome do coletor: </b>${contract.collector.name}
@@ -88,18 +88,17 @@
 											</p>
 											
 											<a
-												href="${pageContext.request.contextPath}/payment?id=${contract.id}"
+												href="${pageContext.request.contextPath}/payment/contract?id=${contract.id}"
 												class="btn btn-sm btn btn-outline-dark">Lista de pagamentos</a>
 										</div>
 									</div>
-								</c:forEach>
-							</div>
+								</div>
+							</c:forEach>
 
+						</div>
 						<label id="alertMessage" class="sr-only">${message}</label>
 
 					</div>
-				</div>
-				</form>
 			</div>
 		</div>
 
