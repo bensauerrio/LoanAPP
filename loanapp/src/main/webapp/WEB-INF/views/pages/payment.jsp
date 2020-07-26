@@ -50,31 +50,24 @@
 
 							<div class="h3 mb-4 font-weight-normal">Pagamento</div>
 
-								<div class="text-left h6 mb-3 font-weight-normal">Código do Contrato</div>
-							<label for="inputCustomerId" class="sr-only">Código do Contrato</label> 
-							<select class="custom-select mb-3 form-control" name="customerId"> 
-							<option selected value=0>Selecione o contrato</option>
-								
-								<c:forEach 
-									items="${contracts}" 
-									var="contract"
-									varStatus="status">
-									<option value="${contract.id}">${contract.id}</option>
-								</c:forEach>
-							</select>
 							<div class="text-left h6 mb-3 font-weight-normal">Valor do
 								Capital Pago</div>
 							<label for="inputCapitalPaid" class="sr-only">Valor de
-								Capital</label> <input type="number" id="inputCapitalPaid"
-								value="${payment.capitalInd}" min="0" step="any"
+								Capital</label> 
+							<input type="number" id="inputCapitalPaid"
+								value="${payment.capitalPaid}" min="0" step="any" name="capitalPaid"
 								class="mb-3 form-control" placeholder="00.00" required>
 
 							<div class="text-left h6 mb-3 font-weight-normal">Valor do
 								Juros Pago</div>
+							
 							<label for="inputInterestPaid" class="sr-only">Valor de
-								Juros</label> <input type="number" id="inputInterestPaid" 
-								value="${payment.interestInd}" min="0" step="any"
+								Juros</label> 
+							<input type="number" id="inputInterestPaid" 
+								value="${payment.interestPaid}" min="0" step="any" name = "interestPaid"
 								class="mb-3 form-control" placeholder="00.00" required>
+							
+							<input type="number" class="sr-only" value="${payment.installment.id}" name="installmentId">
 
 
 							<button class="btn btn-sm btn-outline-dark btn-block mt-3"

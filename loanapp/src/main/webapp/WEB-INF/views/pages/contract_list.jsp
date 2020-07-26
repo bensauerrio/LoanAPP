@@ -88,7 +88,7 @@
 											</p>
 											
 											<a
-												href="${pageContext.request.contextPath}/payment/contract?id=${contract.id}"
+												href="${pageContext.request.contextPath}/contract?id=${contract.id}"
 												class="btn btn-sm btn btn-outline-dark">Lista de pagamentos</a>
 										</div>
 									</div>

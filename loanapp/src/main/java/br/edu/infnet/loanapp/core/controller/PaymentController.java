@@ -1,6 +1,7 @@
 package br.edu.infnet.loanapp.core.controller;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,54 +40,41 @@ public class PaymentController implements BasicController {
 		this.paymentService = paymentService;
 	}
 
-	@PostMapping()
+	@PostMapping
 	public ModelAndView contractForm(@ModelAttribute("paymentForm") final PaymentDTO paymentDto, final Model model) {
 		final Payment payment = Payment.fromDTO(paymentDto);
 		this.paymentService.registerPayment(payment);
 		model.addAttribute("message", "Pagamento realizado com sucesso!");
-		return new ModelAndView(URLConsts.getPaymentPath());
-	}
+		final ModelAndView modelAndView = new ModelAndView(URLConsts.getPaymentListPath());
 
-	@GetMapping("/contract")
-	public ModelAndView showPayments(//
-			@RequestParam(value = "id", required = true) final int id, //
-			final Model model) {
-		ModelAndView modelAndView = new ModelAndView(URLConsts.getPaymentListPath());
-		try {
+		final Customer client = (Customer) model.getAttribute("clientSession");
 
-			modelAndView = new ModelAndView(URLConsts.getPaymentListPath());
+		final Contract contract = payment.getInstallment().getContract();
 
-			final Customer client = (Customer) model.getAttribute("clientSession");
-
-			final Contract contract = this.contractRepository.findById(id)
-					.orElseThrow(() -> new RuntimeException("Nenhum contrato foi encontrado"));
-
-			if (contract.getCustomer().getId() != client.getId()) {
-				throw new RuntimeException("O contrato não é do cliente.");
-			}
-
-			final List<Payment> payments = this.paymentRepository.findAllPaymentByContractId(contract.getId());
-
-			model.addAttribute("payments", payments);
-			model.addAttribute("needMorePayment", payments//
-					.stream()//
-					.noneMatch(item -> item.getInstallment().getInstallmentNbr() == 1));
-			model.addAttribute("contract", contract);
-		} catch (final RuntimeException e) {
-			model.addAttribute("message", e.getMessage());
+		if (contract.getCustomer().getId() != client.getId()) {
+			throw new RuntimeException("O contrato não é do cliente.");
 		}
 
-		return modelAndView;
+		final List<Payment> payments = this.paymentRepository.findAllPaymentByContractId(contract.getId());
+
+		model.addAttribute("payments", payments);
+		model.addAttribute("needMorePayment", payments//
+				.stream()//
+				.filter(Objects::nonNull)//
+				.noneMatch(item -> item.getInstallment().getInstallmentNbr() == 1));
+		model.addAttribute("contract", contract);
+		return new ModelAndView(URLConsts.getPaymentListPath());
 	}
 
 	@GetMapping
 	public ModelAndView goToPayment(//
 			@RequestParam(value = "id", required = true) final int id, //
 			final Model model) {
+
 		ModelAndView modelAndView = new ModelAndView(URLConsts.getPaymentListPath());
 		try {
 
-			modelAndView = new ModelAndView(URLConsts.getPaymentListPath());
+			modelAndView = new ModelAndView(URLConsts.getPaymentPath());
 
 			final Customer client = (Customer) model.getAttribute("clientSession");
 
@@ -97,12 +85,9 @@ public class PaymentController implements BasicController {
 				throw new RuntimeException("O contrato não é do cliente.");
 			}
 
-			final List<Payment> payments = this.paymentRepository.findAllPaymentByContractId(contract.getId());
+			final Payment payment = this.paymentService.getBasicPaymentBasedOnInstallment(contract);
 
-			model.addAttribute("payments", payments);
-			model.addAttribute("needMorePayment", payments//
-					.stream()//
-					.noneMatch(item -> item.getInstallment().getInstallmentNbr() == 1));
+			model.addAttribute("payment", payment);
 		} catch (final RuntimeException e) {
 			model.addAttribute("message", e.getMessage());
 		}

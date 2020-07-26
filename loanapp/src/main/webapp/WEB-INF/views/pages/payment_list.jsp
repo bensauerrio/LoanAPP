@@ -18,7 +18,7 @@
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#conteudoNavbarSuportado"
 			aria-controls="conteudoNavbarSuportado" aria-expanded="false"
-			aria-label="Alterna navegação">
+			aria-label="Alterna navegaï¿½ï¿½o">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
@@ -44,7 +44,7 @@
 							class="fas fa-file-signature fa-stack-1x fa-inverse"></i>
 						</span>
 
-						<div class="h3 mb-4 font-weight-normal">Listar Pagamentos</div>
+						<div class="h3 mb-4 font-weight-normal">Listar Contratos</div>
 						
 
 						<div class="accordion text-left" id="accordion">
@@ -70,7 +70,7 @@
 												<b>Código do pagamento: </b>${payment.id}
 											</p>
 											<p>
-												<b>Nome do coletor: </b>${payment.installment.contract.collector.name}
+												<b>Nome do coletor: </b>${contract.collector.name}
 											</p>
 											<p>
 												<b>Capital pago: </b>R$ <fmt:formatNumber 
@@ -93,13 +93,6 @@
 							</c:forEach>
 
 						</div>
-
-						<!--
-							BEN 
-						-->
-						<!-- <a
-												href="${pageContext.request.contextPath}/payment?id=${contract.id}"
-												class="btn btn-sm btn btn-outline-dark">Lista de pagamentos</a> -->
 						<label id="alertMessage" class="sr-only">${message}</label>
 
 					</div>
