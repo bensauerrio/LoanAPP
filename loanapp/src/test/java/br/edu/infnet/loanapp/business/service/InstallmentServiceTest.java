@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -42,6 +43,9 @@ public class InstallmentServiceTest {
 	@Autowired
 	private ContractRepository contractRepository;
 
+	@Autowired
+	private InstallmenteRepository installmentRepository;
+
 	@Test
 	public void testCalculateBasicInstallmentBasedOnPriceTest1() {
 		final Contract contract = new Contract();
@@ -72,7 +76,7 @@ public class InstallmentServiceTest {
 
 	@Test
 	public void testCalculateInstallmentFromContract1() {
-		this.iniciarCenarioCalculateInstallmentFromContract1();
+		this.startCalculateInstallmentFromContract1();
 
 		assertFalse(this.customerRepository.findAll().isEmpty());
 		assertFalse(this.collectorRepository.findAll().isEmpty());
@@ -96,7 +100,86 @@ public class InstallmentServiceTest {
 
 	}
 
-	private void iniciarCenarioCalculateInstallmentFromContract1() {
+	@Test
+	public void testSimulateInstallmentsFromContract1() {
+		this.startSimulateInstallmentsFromContract1();
+
+		assertFalse(this.customerRepository.findAll().isEmpty());
+		assertFalse(this.collectorRepository.findAll().isEmpty());
+		assertFalse(this.contractRepository.findAll().isEmpty());
+
+		assertEquals(1, this.customerRepository.findAll().size());
+		assertEquals(1, this.collectorRepository.findAll().size());
+		assertEquals(1, this.contractRepository.findAll().size());
+
+		final Contract contract = this.contractRepository.findAll().get(0);
+
+		final List<Installment> installments = this.installmentService.simulateInstallmentsFromContract(contract);
+		assertEquals(4, installments.size());
+
+		Installment installment = installments.get(0);
+		assertNotNull(installment);
+		assertEquals(4, installment.getInstallmentNbr());
+		assertEquals(800.0, installment.getInterestIndicated(), 0d);
+		assertEquals(4709.80, installment.getCapitalIndicates(), 0d);
+		assertEquals(
+				Date.from(
+						LocalDate.of(2020, Month.MARCH, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+				installment.getInstallmentDateDue());
+
+		installment = installments.get(1);
+		assertNotNull(installment);
+		assertEquals(3, installment.getInstallmentNbr());
+		assertEquals(611.61, installment.getInterestIndicated(), 0d);
+		assertEquals(4898.19, installment.getCapitalIndicates(), 0d);
+		assertEquals(
+				Date.from(
+						LocalDate.of(2020, Month.APRIL, 16).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+				installment.getInstallmentDateDue());
+
+		installment = installments.get(2);
+		assertNotNull(installment);
+		assertEquals(2, installment.getInstallmentNbr());
+		assertEquals(415.68, installment.getInterestIndicated(), 0d);
+		assertEquals(5094.12, installment.getCapitalIndicates(), 0d);
+		assertEquals(
+				Date.from(LocalDate.of(2020, Month.MAY, 18).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+				installment.getInstallmentDateDue());
+
+		installment = installments.get(3);
+		assertNotNull(installment);
+		assertEquals(1, installment.getInstallmentNbr());
+		assertEquals(211.92, installment.getInterestIndicated(), 0d);
+		assertEquals(5297.88, installment.getCapitalIndicates(), 0d);
+		assertEquals(
+				Date.from(LocalDate.of(2020, Month.JUNE, 18).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()),
+				installment.getInstallmentDateDue());
+
+	}
+
+	private void startCalculateInstallmentFromContract1() {
+		final Customer customer = new Customer();
+		customer.setAddress("Rua A");
+		customer.setName("Ruan");
+		this.customerRepository.save(customer);
+
+		final Collector collector = new Collector();
+		collector.setName("Coletor");
+		this.collectorRepository.save(collector);
+
+		final Contract contract = new Contract();
+		contract.setCollector(collector);
+		contract.setCustomer(customer);
+		contract.setLoanAmount(20000);
+		contract.setInterestRate(0.04);
+		contract.setQttInstallments(4);
+		contract.setStartDate(Date.from(
+				LocalDate.of(2020, Month.FEBRUARY, 14).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant()));
+		this.contractRepository.save(contract);
+
+	}
+
+	private void startSimulateInstallmentsFromContract1() {
 		final Customer customer = new Customer();
 		customer.setAddress("Rua A");
 		customer.setName("Ruan");
@@ -120,6 +203,7 @@ public class InstallmentServiceTest {
 
 	@After
 	public void after() {
+		this.installmentRepository.deleteAll();
 		this.contractRepository.deleteAll();
 		this.collectorRepository.deleteAll();
 		this.customerRepository.deleteAll();

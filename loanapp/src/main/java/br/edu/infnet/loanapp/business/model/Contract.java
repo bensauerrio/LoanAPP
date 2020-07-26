@@ -23,11 +23,6 @@ import br.edu.infnet.loanapp.core.utils.BeanUtils;
 @Entity
 @Table(name = "LN_CONTRACT")
 public class Contract implements Serializable {
-	
-	public Contract(){
-		this.startDate = new Date();
-		
-	}
 
 	private static final long serialVersionUID = -1109907034863549271L;
 
@@ -67,27 +62,30 @@ public class Contract implements Serializable {
 	private int qttInstallments;
 
 	public static Contract fromDTO(final ContractDTO dto) {
-		Contract contract = new Contract();
-		contract.setCustomer(getCustomerRepository().findById(dto.getCustomerId()).orElseThrow(() -> new RuntimeException("O cliente não foi encontrado!"))); 
-		contract.setCollector(getCollectorRepository().findById(dto.getCollectorId()).orElseThrow(() -> new RuntimeException("O coletor não foi encontrado!")));
+		final Contract contract = new Contract();
+		contract.setCustomer(getCustomerRepository().findById(dto.getCustomerId())
+				.orElseThrow(() -> new RuntimeException("O cliente não foi encontrado!")));
+		contract.setCollector(getCollectorRepository().findById(dto.getCollectorId())
+				.orElseThrow(() -> new RuntimeException("O coletor não foi encontrado!")));
 		contract.setInterestRate(dto.getInterestRate());
 		contract.setLoanAmount(dto.getLoanAmount());
 		contract.setLoanPaymentAmountDue(dto.getLoanPaymentAmountDue());
 		contract.setQttInstallments(dto.getQttInstallments());
-		contract.setStartDate(dto.getStartDate());
-		
 		return contract;
+	}
+
+	public Contract() {
+		this.startDate = new Date();
 	}
 
 	private static CustomerRepository getCustomerRepository() {
 		return BeanUtils.getBean(CustomerRepository.class);
 	}
-	
+
 	private static CollectorRepository getCollectorRepository() {
 		return BeanUtils.getBean(CollectorRepository.class);
 	}
-	
-	
+
 	public int getId() {
 		return this.id;
 	}

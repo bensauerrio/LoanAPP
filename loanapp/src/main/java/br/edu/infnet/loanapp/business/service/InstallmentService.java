@@ -1,6 +1,9 @@
 package br.edu.infnet.loanapp.business.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 import org.apache.commons.math3.util.Precision;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +62,58 @@ public class InstallmentService {
 
 		}
 
+		return installment;
+	}
+
+	public List<Installment> simulateInstallmentsFromContract(final Contract contract) {
+		final TreeSet<Installment> installments = new TreeSet<>();
+
+		int installmentNumber = contract.getQttInstallments();
+		final double basicInstallment = this.getBasicInstallment(//
+				contract.getLoanAmount(), //
+				contract.getInterestRate(), //
+				installmentNumber);
+
+		while (installmentNumber > 0) {
+
+			installments.add(this.processInstallmentFromInstallment(contract, installments, basicInstallment));
+
+			installmentNumber--;
+		}
+
+		return installments.stream().collect(Collectors.toList());
+	}
+
+	private Installment processInstallmentFromInstallment(//
+			final Contract contract, //
+			final TreeSet<Installment> installments, //
+			final double basicInstallment) {
+
+		Installment installment;
+		if (installments.isEmpty()) {
+
+			final double interestedRate = Precision.round(contract.getInterestRate() * contract.getLoanAmount(), 2);
+			installment = new Installment(//
+					contract, //
+					interestedRate, //
+					Precision.round(basicInstallment - interestedRate, 2), //
+					DateUtils.addMonth(contract.getStartDate(), 1), //
+					contract.getQttInstallments());
+			installment.setDue(Precision.round(contract.getLoanAmount() - installment.getCapitalIndicates(), 2));
+
+		} else {
+			final Installment previousInstallment = installments.last();
+			final double interestedRate = Precision.round(contract.getInterestRate() * (previousInstallment.getDue()),
+					2);
+			installment = new Installment(//
+					contract, //
+					interestedRate, //
+					Precision.round(basicInstallment - interestedRate, 2), //
+					DateUtils.addMonth(previousInstallment.getInstallmentDateDue(), 1), //
+					previousInstallment.getInstallmentNbr() - 1);
+
+			installment.setDue(Precision.round(previousInstallment.getDue() - installment.getCapitalIndicates(), 2));
+		}
 		return installment;
 	}
 

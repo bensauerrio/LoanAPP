@@ -1,6 +1,8 @@
 package br.edu.infnet.loanapp.business.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,6 +16,9 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+
+import org.apache.commons.math3.util.Precision;
 
 @Entity
 @Table(name = "LN_INSTALLMENT")
@@ -46,6 +51,9 @@ public class Installment implements Serializable, Comparable<Installment> {
 	@Column(name = "installmentNbr", nullable = false)
 	private int installmentNbr;
 
+	@Transient
+	private double due;
+
 	public Installment(//
 			final int id, //
 			final Contract contract, //
@@ -55,6 +63,20 @@ public class Installment implements Serializable, Comparable<Installment> {
 			final int installmentNbr) {
 		super();
 		this.id = id;
+		this.contract = contract;
+		this.interestIndicated = interestIndicated;
+		this.capitalIndicates = capitalIndicates;
+		this.installmentDateDue = installmentDateDue;
+		this.installmentNbr = installmentNbr;
+	}
+
+	public Installment(//
+			final Contract contract, //
+			final double interestIndicated, //
+			final double capitalIndicates, //
+			final Date installmentDateDue, //
+			final int installmentNbr) {
+		super();
 		this.contract = contract;
 		this.interestIndicated = interestIndicated;
 		this.capitalIndicates = capitalIndicates;
@@ -166,6 +188,23 @@ public class Installment implements Serializable, Comparable<Installment> {
 			return 1;
 		}
 		return this.getInstallmentDateDue().getTime() < o.getInstallmentDateDue().getTime() ? -1 : 1;
+	}
+
+	public double getDue() {
+		return this.due;
+	}
+
+	public void setDue(final double due) {
+		this.due = due;
+	}
+
+	public double getTotalToPay() {
+		return Precision.round(this.capitalIndicates + this.interestIndicated, 2);
+	}
+
+	public String getDateFormated() {
+		final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		return dateFormat.format(this.getInstallmentDateDue());
 	}
 
 }
