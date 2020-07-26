@@ -28,7 +28,7 @@
 		<div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item ml-3">
-					<!-- <a href="#" class="btn btn-sm text-left" onclick="history.back();">Voltar
+					<!-- <a href="" class="btn btn-sm text-left" onclick="history.back();">Voltar
 						<i class="fas fa-arrow-circle-left"></i>
 					</a> -->
 				</li>
