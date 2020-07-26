@@ -54,7 +54,7 @@
 							
 							<div class="text-left h6 mb-3 font-weight-normal">Código do Cliente</div>
 							<label for="inputCustomerId" class="sr-only">Código do Cliente</label> 
-							<select class="custom-select" name="customerId"> 
+							<select class="custom-select mb-3 form-control" name="customerId"> 
 							<option selected value=0>Selecione o cliente</option>
 								
 								<c:forEach 
@@ -69,7 +69,7 @@
 							<div class="text-left h6 mb-3 font-weight-normal">Taxa de Juros</div>
 							<label for="inputInterest" class="sr-only">Taxa de Juros</label> 
 							<input type="number" id="inputInterest" name="interestRate" min="0" step="any" 
-								class="mb-3 form-control" placeholder="00.00" required>
+								class="mb-3 form-control" placeholder="00.00%" required>
 
 							<div class="text-left h6 mb-3 font-weight-normal">Valor do Empréstimo</div>
 							<label for="inputLoan" class="sr-only">Valor do Empréstimo</label> 

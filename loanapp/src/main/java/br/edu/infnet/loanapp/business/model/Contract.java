@@ -62,6 +62,8 @@ public class Contract implements Serializable {
 	private int qttInstallments;
 
 	public static Contract fromDTO(final ContractDTO dto) {
+		double interestRateIn = dto.getInterestRate();
+		dto.setInterestRate(interestRateIn/100);
 		final Contract contract = new Contract();
 		contract.setCustomer(getCustomerRepository().findById(dto.getCustomerId())
 				.orElseThrow(() -> new RuntimeException("O cliente não foi encontrado!")));

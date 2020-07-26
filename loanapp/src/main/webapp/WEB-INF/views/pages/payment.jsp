@@ -50,17 +50,18 @@
 
 							<div class="h3 mb-4 font-weight-normal">Pagamento</div>
 
-							<div class="text-left h6 mb-3 font-weight-normal">Código do
-								Contrato</div>
-							<label for="inputCustomerId" class="sr-only">Código do
-								Contrato</label>
-							<form:select path="contracts" class="mb-3 form-control">
-
-								<c:forEach items="${contracts}" var="customer"
+								<div class="text-left h6 mb-3 font-weight-normal">Código do Contrato</div>
+							<label for="inputCustomerId" class="sr-only">Código do Contrato</label> 
+							<select class="custom-select mb-3 form-control" name="customerId"> 
+							<option selected value=0>Selecione o contrato</option>
+								
+								<c:forEach 
+									items="${contracts}" 
+									var="contract"
 									varStatus="status">
 									<option value="${contract.id}">${contract.id}</option>
 								</c:forEach>
-							</form:select>
+							</select>
 							<div class="text-left h6 mb-3 font-weight-normal">Valor do
 								Capital Pago</div>
 							<label for="inputCapitalPaid" class="sr-only">Valor de
