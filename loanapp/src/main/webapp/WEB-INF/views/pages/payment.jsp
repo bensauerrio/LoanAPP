@@ -1,17 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html>
-
 <head>
 <jsp:include page="../templates/head.jsp"></jsp:include>
 <link href="css/login.css" rel="stylesheet">
 </head>
 
 <body class="text-center bg-dark">
-
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#"> <span class="fa-stack fa-2x">
 				<i class="fas fa-circle fa-stack-2x"></i> <i

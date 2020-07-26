@@ -1,18 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <jsp:include page="../templates/head.jsp"></jsp:include>
 <link href="css/login.css" rel="stylesheet">
 </head>
-
 <body class="text-center bg-dark">
 	<div class="container">
 		<div class="row justify-content-md-center">
-
 
 			<label id="alertMessage" class="sr-only">${message}</label>
 

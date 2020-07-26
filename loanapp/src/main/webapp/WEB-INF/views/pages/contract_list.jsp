@@ -8,7 +8,6 @@
 </head>
 
 <body class="text-center bg-dark">
-
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
 		<a class="navbar-brand" href="#"> <span class="fa-stack fa-2x">
 				<i class="fas fa-circle fa-stack-2x"></i> <i
