@@ -3,10 +3,6 @@ package br.edu.infnet.loanapp.core.dto;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 public class PaymentDTO implements Serializable {
 
 	private static final long serialVersionUID = -7991496075304948709L;

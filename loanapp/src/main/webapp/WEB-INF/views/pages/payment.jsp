@@ -52,22 +52,27 @@
 
 							<div class="text-left h6 mb-3 font-weight-normal">Código do
 								Contrato</div>
-							<label for="inputContractId" class="sr-only">Código do
-								contrato</label> <input type="number" id="inputContractId"
-								class="mb-3 form-control" placeholder="0" required autofocus>
+							<label for="inputCustomerId" class="sr-only">Código do
+								Contrato</label>
+							<form:select path="contracts" class="mb-3 form-control">
 
+								<c:forEach items="${contracts}" var="customer"
+									varStatus="status">
+									<option value="${contract.id}">${contract.id}</option>
+								</c:forEach>
+							</form:select>
 							<div class="text-left h6 mb-3 font-weight-normal">Valor do
 								Capital Pago</div>
 							<label for="inputCapitalPaid" class="sr-only">Valor de
 								Capital</label> <input type="number" id="inputCapitalPaid"
-								value="${payment.capitalPaid}" min="0" step="any"
+								value="${payment.capitalInd}" min="0" step="any"
 								class="mb-3 form-control" placeholder="00.00" required>
 
 							<div class="text-left h6 mb-3 font-weight-normal">Valor do
 								Juros Pago</div>
 							<label for="inputInterestPaid" class="sr-only">Valor de
-								Juros</label> <input type="number" id="inputInterestPaid" min="0"
-								value="${payment.interestPaid}" step="any"
+								Juros</label> <input type="number" id="inputInterestPaid" 
+								value="${payment.interestInd}" min="0" step="any"
 								class="mb-3 form-control" placeholder="00.00" required>
 
 

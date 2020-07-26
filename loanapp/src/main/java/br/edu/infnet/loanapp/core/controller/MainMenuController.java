@@ -63,7 +63,6 @@ public class MainMenuController {
 		if (URLConsts.getPaymentPath().equalsIgnoreCase(path)) {
 			this.loadPaymentAttributes(modelAndView);
 		}
-
 		modelAndView.setViewName(path);
 		return modelAndView;
 	}
@@ -75,6 +74,7 @@ public class MainMenuController {
 
 	private void loadPaymentAttributes(final ModelAndView modelAndView) {
 		final List<Contract> contracts = this.contractRepository.findAll();
+		//final List<Contract> contracts = this.contractRepository.findByAttribute(customer);
 		modelAndView.addObject("contracts", contracts);
 	}
 }
