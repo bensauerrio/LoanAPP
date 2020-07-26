@@ -93,6 +93,11 @@
 							</c:forEach>
 
 						</div>
+						
+						<a
+						href="${pageContext.request.contextPath}/payment?id=${payment.id}"
+						class="btn btn-sm btn btn-outline-dark">Realizar Pagamento</a>
+
 						<label id="alertMessage" class="sr-only">${message}</label>
 
 					</div>
