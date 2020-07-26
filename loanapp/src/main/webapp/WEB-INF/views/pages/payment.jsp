@@ -28,7 +28,7 @@
 						<i class="fas fa-arrow-circle-left"></i>
 				</a></li>
 			</ul>
-			<a class="btn btn-sm">Sair <i class="fas fa-sign-out-alt"></i></a>
+			<a href="logout" class="btn btn-sm">Sair <i class="fas fa-sign-out-alt"></i></a>
 
 		</div>
 	</nav>
