@@ -44,7 +44,7 @@
 							class="fas fa-file-signature fa-stack-1x fa-inverse"></i>
 						</span>
 
-						<div class="h3 mb-4 font-weight-normal">Listar Contratos</div>
+						<div class="h3 mb-4 font-weight-normal">Contratos</div>
 						
 
 						<div class="accordion text-left" id="accordion">
@@ -80,7 +80,7 @@
 																				value="${contract.loanAmount}" />
 											</p>
 											<p>
-												<b>Saldo: </b>R$ <fmt:formatNumber 
+												<b>Saldo devedor: </b>R$ <fmt:formatNumber 
 																				type="number" 
 																				minFractionDigits="2" 
 																				maxFractionDigits="2" 

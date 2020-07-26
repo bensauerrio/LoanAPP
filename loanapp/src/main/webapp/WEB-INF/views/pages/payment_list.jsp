@@ -44,7 +44,7 @@
 							class="fas fa-file-signature fa-stack-1x fa-inverse"></i>
 						</span>
 
-						<div class="h3 mb-4 font-weight-normal">Listar Contratos</div>
+						<div class="h3 mb-4 font-weight-normal">Pagamentos</div>
 						
 
 						<div class="accordion text-left" id="accordion">
@@ -80,7 +80,7 @@
 																				value="${payment.capitalPaid}" />
 											</p>
 											<p>
-												<b>Juro pago: </b>R$ <fmt:formatNumber 
+												<b>Juros pago: </b>R$ <fmt:formatNumber 
 																				type="number" 
 																				minFractionDigits="2" 
 																				maxFractionDigits="2" 
