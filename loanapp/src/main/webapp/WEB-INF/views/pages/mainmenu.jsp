@@ -7,57 +7,69 @@
 <jsp:include page="../templates/head.jsp"></jsp:include>
 </head>
 <body class="bg-dark">
-	<nav class="navbar navbar-light bg-light">
-	  <a class="navbar-brand" href="#">
-	    <span class="fa-stack fa-2x"> 
-			<i class="fas fa-circle fa-stack-2x"></i> 
-			<i class="fas fa-hand-holding-usd fa-stack-1x fa-inverse"></i>
-		</span>
-	    LoanAPP
-	  </a>
-	  
-	  <a class="btn btn-sm"><i class="fas fa-sign-out-alt fa-2x"></i></a>
+
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a class="navbar-brand" href="#"> <span class="fa-stack fa-2x">
+				<i class="fas fa-circle fa-stack-2x"></i> <i
+				class="fas fa-hand-holding-usd fa-stack-1x fa-inverse"></i>
+		</span> LoanAPP</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#conteudoNavbarSuportado"
+			aria-controls="conteudoNavbarSuportado" aria-expanded="false"
+			aria-label="Alterna navegação">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+		<div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item ml-3">
+					<a class="btn btn-sm text-left">Voltar <i class="fas fa-arrow-circle-left"></i></a>
+				</li>
+			</ul>
+			<a class="btn btn-sm">Sair <i class="fas fa-sign-out-alt"></i></a>
+			
+		</div>
 	</nav>
 
 	<div class="container">
-		
-		<div class="row mt-5">
 
-			<c:forEach 
-				items="${sessionFunctionalities}" 
-				var="functionality"
-				varStatus="status"> 	
+		<div class="row mt-5 justify-content-md-center">
 
-				<div class="col-md">
+			<c:forEach items="${sessionFunctionalities}" var="functionality"
+				varStatus="status">
+
+				<div class="col-md-auto">
 					<div class="card shadow" style="width: 18rem;">
-							<div class="card-body text-center">
-								<span class="fa-stack fa-2x"> 
-									<i class="fas fa-circle fa-stack-2x"></i> 
-									<i class="fas fa-search-dollar fa-stack-1x fa-inverse"></i>
-								</span>
-								
-								<p class="card-text mt-3">${functionality.name}</p>
-							</div>
-							
-							<div class="card-body text-center bg-light">
-							 <c:if test = "${functionality.enabled}"> 
-								<a href="${pageContext.request.contextPath}/mainmenu?path=${functionality.route}" class="btn btn-sm btn-outline-dark card-link">Acessar</a>
-							 </c:if>
-							 
-							 <c:if test = "${!functionality.enabled}">  
+						<div class="card-body text-center">
+							<span class="fa-stack fa-2x"> <i
+								class="fas fa-circle fa-stack-2x"></i> <i
+								class="fas fa-search-dollar fa-stack-1x fa-inverse"></i>
+							</span>
+
+							<p class="card-text mt-3">${functionality.name}</p>
+						</div>
+
+						<div class="card-body text-center bg-light">
+							<c:if test="${functionality.enabled}">
+								<a
+									href="${pageContext.request.contextPath}/mainmenu?path=${functionality.route}"
+									class="btn btn-sm btn-outline-dark card-link">Acessar</a>
+							</c:if>
+
+							<c:if test="${!functionality.enabled}">
 								<a href="#" class="btn btn-sm btn-outline-dark card-link">Acessar</a>
-							 </c:if>
-							 
-							 
+							</c:if>
+
+
 						</div>
 					</div>
 				</div>
 
 			</c:forEach>
-			
+
 		</div>
-		
-		
+
+
 		<nav class="navbar fixed-bottom navbar-light bg-light">
 			<div class="row">
 				<div class="col-md">

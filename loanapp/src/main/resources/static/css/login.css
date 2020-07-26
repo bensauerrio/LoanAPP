@@ -2,23 +2,32 @@ html, body {
   height: 100%;
 }
 
-.container {
+.center-login {
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.center-login {
-    height: 100%;
-}
-
 .center-payment {
     height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .center-contract {
     height: 90%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
+.center-contractlist {
+    
+}
+
+
 
 /*
 body {
