@@ -16,6 +16,8 @@ public class FunctionalityDTO implements Serializable {
 
 	private boolean enabled;
 
+	private boolean hidden;
+
 	private FunctionalityDTO() {
 		super();
 	}
@@ -35,6 +37,16 @@ public class FunctionalityDTO implements Serializable {
 			final ClientType clientType, //
 			final boolean enabled) {
 		return new FunctionalityDTO(route, name, clientType, enabled);
+	}
+
+	public static FunctionalityDTO newInstanceHidden(//
+			final String route, //
+			final String name, //
+			final ClientType clientType, //
+			final boolean enabled) {
+		final FunctionalityDTO functionalityDTO = new FunctionalityDTO(route, name, clientType, enabled);
+		functionalityDTO.setHidden(true);
+		return functionalityDTO;
 	}
 
 	public String getRoute() {
@@ -73,6 +85,14 @@ public class FunctionalityDTO implements Serializable {
 	public String toString() {
 		return String.format("FunctionalityDTO [route=%s, name=%s, clientType=%s, enabled=%s]", this.route, this.name,
 				this.clientType, this.enabled);
+	}
+
+	public boolean isHidden() {
+		return this.hidden;
+	}
+
+	public void setHidden(final boolean hidden) {
+		this.hidden = hidden;
 	}
 
 }

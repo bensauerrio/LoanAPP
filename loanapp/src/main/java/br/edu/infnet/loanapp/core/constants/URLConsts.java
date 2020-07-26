@@ -12,6 +12,10 @@ public class URLConsts {
 
 	private static final String CLIENT_PATH = "/client";
 
+	private static final String PAYMENT_LIST_PATH = "/payment_list";
+
+	private static final String CONTRACT_LIST_PATH = "/contract_list";
+
 	private URLConsts() {
 		super();
 	}
@@ -34,6 +38,14 @@ public class URLConsts {
 
 	public static String getClientPath() {
 		return CLIENT_PATH;
+	}
+
+	public static String getPaymentListPath() {
+		return PAYMENT_LIST_PATH;
+	}
+
+	public static String getContractListPath() {
+		return CONTRACT_LIST_PATH;
 	}
 
 }

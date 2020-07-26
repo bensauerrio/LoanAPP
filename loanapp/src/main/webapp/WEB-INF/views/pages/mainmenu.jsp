@@ -15,7 +15,7 @@
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#conteudoNavbarSuportado"
 			aria-controls="conteudoNavbarSuportado" aria-expanded="false"
-			aria-label="Alterna navegação">
+			aria-label="Alterna navegaï¿½ï¿½o">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 
@@ -37,7 +37,7 @@
 			<c:forEach items="${sessionFunctionalities}" var="functionality"
 				varStatus="status">
 
-				<div class="col-md-auto">
+				<div class="col-md-auto ${functionality.hidden ? 'd-none' : ''}">
 					<div class="card shadow" style="width: 18rem;">
 						<div class="card-body text-center">
 							<span class="fa-stack fa-2x"> <i

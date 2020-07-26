@@ -60,7 +60,9 @@ public final class FunctionalitySingleton {
 		this.functionalities.computeIfAbsent(ClientType.CUSTOMER, key -> {
 
 			return Arrays.asList(//
-					FunctionalityDTO.newInstance(URLConsts.getPaymentPath(), "Payment", key, true));
+					FunctionalityDTO.newInstanceHidden(URLConsts.getPaymentPath(), "Pagamento", key, true), //
+					FunctionalityDTO.newInstance(URLConsts.getContractListPath(), "Contratos", key, true), //
+					FunctionalityDTO.newInstanceHidden(URLConsts.getPaymentListPath(), "Pagamentos", key, true));
 		});
 	}
 

@@ -43,8 +43,7 @@ public class ContractController {
 	public ModelAndView contractForm(//
 			@ModelAttribute("contractForm") final ContractDTO contractDto, //
 			final Model model, //
-			@RequestParam(value = "formButton") final String buttonType, //
-			final ModelAndView modelAndView) {
+			@RequestParam(value = "formButton") final String buttonType) {
 
 		final Collector collector = (Collector) model.getAttribute("clientSession");
 		contractDto.setCollectorId(collector.getId());

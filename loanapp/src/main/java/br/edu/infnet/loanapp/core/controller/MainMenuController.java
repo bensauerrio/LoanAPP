@@ -21,7 +21,11 @@ import br.edu.infnet.loanapp.core.constants.URLConsts;
 
 @Controller
 @RequestMapping(value = "/mainmenu")
-@SessionAttributes({ "clientSession", "sessionFunctionalities", "customers", "contracts" })
+@SessionAttributes({ //
+		"clientSession", //
+		"sessionFunctionalities", //
+		"customers", //
+		"contracts" })
 public class MainMenuController {
 
 	@Autowired
@@ -61,6 +65,10 @@ public class MainMenuController {
 		}
 
 		if (URLConsts.getPaymentPath().equalsIgnoreCase(path)) {
+			this.loadPaymentAttributes(modelAndView, client);
+		}
+
+		if (URLConsts.getContractListPath().equalsIgnoreCase(path)) {
 			this.loadPaymentAttributes(modelAndView, client);
 		}
 		modelAndView.setViewName(path);

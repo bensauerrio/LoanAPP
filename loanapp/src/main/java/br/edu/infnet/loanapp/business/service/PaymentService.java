@@ -32,8 +32,8 @@ public class PaymentService {
 
 	public void registerPayment(final Payment payment) {
 		if (payment.isLastPayment() //
-				&& (payment.getCapitalPaid() == payment.getInstallment().getCapitalIndicates() //
-						|| payment.getInterestPaid() == payment.getInstallment().getInterestIndicated())) {
+				&& (payment.getCapitalPaid() != payment.getInstallment().getCapitalIndicates() //
+						|| payment.getInterestPaid() != payment.getInstallment().getInterestIndicated())) {
 			throw new RuntimeException("Os valores dá ultima parcela devem ser os valores indicados.");
 		}
 
