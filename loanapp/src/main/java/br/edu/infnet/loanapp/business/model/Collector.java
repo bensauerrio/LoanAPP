@@ -23,6 +23,7 @@ public class Collector implements Serializable, Client {
 	@Column(name = "name", nullable = false, length = 255)
 	private String name;
 
+	@Override
 	public int getId() {
 		return this.id;
 	}

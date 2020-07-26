@@ -21,7 +21,7 @@ import br.edu.infnet.loanapp.core.constants.URLConsts;
 
 @Controller
 @RequestMapping(value = "/mainmenu")
-@SessionAttributes({ "clientSession", "sessionFunctionalities" })
+@SessionAttributes({ "clientSession", "sessionFunctionalities", "customers", "contracts" })
 public class MainMenuController {
 
 	@Autowired
@@ -42,7 +42,7 @@ public class MainMenuController {
 		try {
 
 			if (FunctionalitySingleton.getInstance().isPathValid(client, path)) {
-				return this.beforeGo(path);
+				return this.beforeGo(path, client);
 			} else {
 				logMessage = "Funcionalidade não permitida para o usuário";
 			}
@@ -54,27 +54,26 @@ public class MainMenuController {
 		return new ModelAndView(URLConsts.getMainMenuPath());
 	}
 
-	private ModelAndView beforeGo(final String path) {
+	private ModelAndView beforeGo(final String path, final Client client) {
 		final ModelAndView modelAndView = new ModelAndView();
 		if (URLConsts.getContractPath().equalsIgnoreCase(path)) {
-			this.loadContractAttributes(modelAndView);
+			this.loadContractAttributes(modelAndView, client);
 		}
 
 		if (URLConsts.getPaymentPath().equalsIgnoreCase(path)) {
-			this.loadPaymentAttributes(modelAndView);
+			this.loadPaymentAttributes(modelAndView, client);
 		}
 		modelAndView.setViewName(path);
 		return modelAndView;
 	}
 
-	private void loadContractAttributes(final ModelAndView modelAndView) {
+	private void loadContractAttributes(final ModelAndView modelAndView, final Client client) {
 		final List<Customer> customers = this.customerRepository.findAll();
 		modelAndView.addObject("customers", customers);
 	}
 
-	private void loadPaymentAttributes(final ModelAndView modelAndView) {
-		final List<Contract> contracts = this.contractRepository.findAll();
-		//final List<Contract> contracts = this.contractRepository.findByAttribute(customer);
+	private void loadPaymentAttributes(final ModelAndView modelAndView, final Client client) {
+		final List<Contract> contracts = this.contractRepository.findAllByClientId(client.getId());
 		modelAndView.addObject("contracts", contracts);
 	}
 }

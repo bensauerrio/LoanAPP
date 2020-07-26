@@ -26,6 +26,7 @@ public class Customer implements Serializable, Client {
 	@Column(name = "address", nullable = false, length = 255)
 	private String address;
 
+	@Override
 	public int getId() {
 		return this.id;
 	}

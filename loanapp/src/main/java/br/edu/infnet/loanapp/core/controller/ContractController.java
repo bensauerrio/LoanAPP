@@ -20,7 +20,7 @@ import br.edu.infnet.loanapp.core.dto.ContractDTO;
 
 @Controller
 @RequestMapping("/contract")
-@SessionAttributes({ "clientSession" })
+@SessionAttributes({ "clientSession", "customers" })
 public class ContractController {
 
 	private final ContractRepository contractRepository;
@@ -43,7 +43,8 @@ public class ContractController {
 	public ModelAndView contractForm(//
 			@ModelAttribute("contractForm") final ContractDTO contractDto, //
 			final Model model, //
-			@RequestParam(value = "formButton") final String buttonType) {
+			@RequestParam(value = "formButton") final String buttonType, //
+			final ModelAndView modelAndView) {
 
 		final Collector collector = (Collector) model.getAttribute("clientSession");
 		contractDto.setCollectorId(collector.getId());
@@ -53,6 +54,7 @@ public class ContractController {
 			model.addAttribute("showModal", "showModal");
 			model.addAttribute("installmentsSimulation",
 					this.installmentService.simulateInstallmentsFromContract(contract));
+			model.addAttribute("contractForm", contractDto);
 		} else {
 			this.contractService.registerContract(contract);
 			model.addAttribute("message", "Contrato salvo com sucesso!");
