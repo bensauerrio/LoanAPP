@@ -63,7 +63,7 @@
 										</h5>
 									</div>
 	
-									<div id="collapse${contract.id}" class="collapse"
+									<div id="collapse${payment.id}" class="collapse"
 										aria-labelledby="headingOne" data-parent="#accordion">
 										<div class="card-body">
 											<p>
@@ -93,6 +93,11 @@
 							</c:forEach>
 
 						</div>
+						<c:if test="${needMorePayment}">
+							<a
+								href="${pageContext.request.contextPath}/payment?id=${contract.id}"
+								class="btn btn-sm btn btn-outline-dark mt-2">Realizar pagamento</a>
+						</c:if>
 						<label id="alertMessage" class="sr-only">${message}</label>
 
 					</div>

@@ -67,12 +67,19 @@
 								value="${payment.interestPaid}" min="0" step="any" name = "interestPaid"
 								class="mb-3 form-control" placeholder="00.00" required>
 							
-							<input type="number" class="sr-only" value="${payment.installment.id}" name="installmentId">
+							
+							<input type="number" class="sr-only" value="${payment.installment.interestIndicated}" name="interestIndicated">
+							<input type="number" class="sr-only" value="${payment.installment.capitalIndicates}" name="capitalIndicates">
+							<input type="number" class="sr-only" value="${payment.installment.installmentNbr}" name="installmentNbr">
+							<input type="text" class="sr-only" value="${payment.installment.getDateFormated()}" name="installmentDateDue">
+
+							<input type="number" class="sr-only" value="${payment.installment.contract.id}" name="contractId">
 
 
+							
 							<button class="btn btn-sm btn-outline-dark btn-block mt-3"
 								type="submit">Confirmar</button>
-
+							
 							<label id="alertMessage" class="sr-only">${message}</label>
 						</div>
 					</div>

@@ -42,28 +42,36 @@ public class PaymentController implements BasicController {
 
 	@PostMapping
 	public ModelAndView contractForm(@ModelAttribute("paymentForm") final PaymentDTO paymentDto, final Model model) {
-		final Payment payment = Payment.fromDTO(paymentDto);
-		this.paymentService.registerPayment(payment);
-		model.addAttribute("message", "Pagamento realizado com sucesso!");
-		final ModelAndView modelAndView = new ModelAndView(URLConsts.getPaymentListPath());
 
-		final Customer client = (Customer) model.getAttribute("clientSession");
+		ModelAndView modelAndView = new ModelAndView(URLConsts.getPaymentListPath());
+		try {
 
-		final Contract contract = payment.getInstallment().getContract();
+			final Payment payment = Payment.fromDTO(paymentDto);
 
-		if (contract.getCustomer().getId() != client.getId()) {
-			throw new RuntimeException("O contrato não é do cliente.");
+			this.paymentService.registerPayment(payment);
+			model.addAttribute("message", "Pagamento realizado com sucesso!");
+			modelAndView = new ModelAndView(URLConsts.getPaymentListPath());
+
+			final Customer client = (Customer) model.getAttribute("clientSession");
+
+			final Contract contract = payment.getInstallment().getContract();
+
+			if (contract.getCustomer().getId() != client.getId()) {
+				throw new RuntimeException("O contrato não é do cliente.");
+			}
+
+			final List<Payment> payments = this.paymentRepository.findAllPaymentByContractId(contract.getId());
+
+			model.addAttribute("payments", payments);
+			model.addAttribute("needMorePayment", payments//
+					.stream()//
+					.filter(Objects::nonNull)//
+					.noneMatch(item -> item.getInstallment().getInstallmentNbr() == 1));
+			model.addAttribute("contract", contract);
+		} catch (final RuntimeException e) {
+			model.addAttribute("message", e.getMessage());
 		}
-
-		final List<Payment> payments = this.paymentRepository.findAllPaymentByContractId(contract.getId());
-
-		model.addAttribute("payments", payments);
-		model.addAttribute("needMorePayment", payments//
-				.stream()//
-				.filter(Objects::nonNull)//
-				.noneMatch(item -> item.getInstallment().getInstallmentNbr() == 1));
-		model.addAttribute("contract", contract);
-		return new ModelAndView(URLConsts.getPaymentListPath());
+		return modelAndView;
 	}
 
 	@GetMapping

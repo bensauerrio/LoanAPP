@@ -1,6 +1,8 @@
 package br.edu.infnet.loanapp.business.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -16,6 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
+import br.edu.infnet.loanapp.business.repository.ContractRepository;
 import br.edu.infnet.loanapp.business.service.InstallmenteRepository;
 import br.edu.infnet.loanapp.core.dto.PaymentDTO;
 import br.edu.infnet.loanapp.core.utils.BeanUtils;
@@ -49,17 +52,38 @@ public class Payment implements Serializable {
 	private double interestPaid;
 
 	public static Payment fromDTO(final PaymentDTO dto) {
+
+		final Installment installment = new Installment();
+		installment.setCapitalIndicates(dto.getCapitalIndicates());
+		installment.setInstallmentNbr(dto.getInstallmentNbr());
+		installment.setInterestIndicated(dto.getInterestIndicated());
+		installment.setContract(getContractRepository().findById(dto.getContractId())
+				.orElseThrow(() -> new RuntimeException("Nenhum contrato foi encontrado")));
+		installment.setInstallmentDateDue(getDateByString(dto.getInstallmentDateDue()));
+
 		final Payment payment = new Payment();
 		payment.setCapitalPaid(dto.getCapitalPaid());
 		payment.setInterestPaid(dto.getInterestPaid());
 		payment.setPaymentDate(new Date());
-		payment.setInstallment(getInstallmenteRepository().findById(dto.getInstallmentId())
-				.orElseThrow(() -> new RuntimeException("A parcela não foi encontrada!")));
+		payment.setInstallment(installment);
 		return payment;
+	}
+
+	private static Date getDateByString(final String stringDate) {
+		final DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			return dateFormat.parse(stringDate);
+		} catch (final Exception e) {
+			return new Date();
+		}
 	}
 
 	private static InstallmenteRepository getInstallmenteRepository() {
 		return BeanUtils.getBean(InstallmenteRepository.class);
+	}
+
+	private static ContractRepository getContractRepository() {
+		return BeanUtils.getBean(ContractRepository.class);
 	}
 
 	public Payment() {
