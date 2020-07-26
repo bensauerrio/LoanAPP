@@ -23,8 +23,6 @@
 			</div>
 		</nav>
 	</div>
-	</div>
-
 	<script src="component/alert/alert.component.js"></script>
 	<script src="js/login.js"></script>
 </body>

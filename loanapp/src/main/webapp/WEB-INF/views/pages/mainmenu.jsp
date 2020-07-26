@@ -22,7 +22,9 @@
 		<div class="collapse navbar-collapse" id="conteudoNavbarSuportado">
 			<ul class="navbar-nav mr-auto">
 				<li class="nav-item ml-3">
-					<a class="btn btn-sm text-left">Voltar <i class="fas fa-arrow-circle-left"></i></a>
+					<!-- <a href="#" class="btn btn-sm text-left" onclick="history.back();">Voltar
+						<i class="fas fa-arrow-circle-left"></i>
+					</a> -->
 				</li>
 			</ul>
 			<a href="logout" class="btn btn-sm">Sair <i class="fas fa-sign-out-alt"></i></a>
